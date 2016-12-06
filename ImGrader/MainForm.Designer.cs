@@ -17,6 +17,9 @@ namespace ImGrader
 		private System.Windows.Forms.PictureBox pbox;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.FolderBrowserDialog fbrowser;
+		private System.Windows.Forms.Label lbGrade;
+		private System.Windows.Forms.Button button2;
+		private System.Windows.Forms.ToolTip toolTip;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -39,10 +42,14 @@ namespace ImGrader
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.pbox = new System.Windows.Forms.PictureBox();
 			this.button1 = new System.Windows.Forms.Button();
 			this.fbrowser = new System.Windows.Forms.FolderBrowserDialog();
+			this.lbGrade = new System.Windows.Forms.Label();
+			this.button2 = new System.Windows.Forms.Button();
+			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -65,16 +72,48 @@ namespace ImGrader
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(48, 48);
 			this.button1.TabIndex = 1;
+			this.button1.TabStop = false;
+			this.toolTip.SetToolTip(this.button1, "Open a folder with images");
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.Button1Click);
+			// 
+			// fbrowser
+			// 
+			this.fbrowser.Description = "Choose a folder with images";
+			// 
+			// lbGrade
+			// 
+			this.lbGrade.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.lbGrade.Location = new System.Drawing.Point(66, 12);
+			this.lbGrade.Name = "lbGrade";
+			this.lbGrade.Size = new System.Drawing.Size(119, 25);
+			this.lbGrade.TabIndex = 2;
+			// 
+			// button2
+			// 
+			this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
+			this.button2.Location = new System.Drawing.Point(12, 66);
+			this.button2.Name = "button2";
+			this.button2.Size = new System.Drawing.Size(48, 48);
+			this.button2.TabIndex = 3;
+			this.button2.TabStop = false;
+			this.button2.Text = "0";
+			this.button2.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+			this.toolTip.SetToolTip(this.button2, "Filter and show only images above a certain grade");
+			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Click += new System.EventHandler(this.Button2Click);
 			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(778, 420);
+			this.Controls.Add(this.button2);
+			this.Controls.Add(this.lbGrade);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.pbox);
+			this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
 			this.KeyPreview = true;
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

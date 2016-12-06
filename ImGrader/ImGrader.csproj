@@ -50,6 +50,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GradeFilterDialog.cs" />
+    <Compile Include="GradeFilterDialog.Designer.cs">
+      <DependentUpon>GradeFilterDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImageFile.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
@@ -62,6 +66,9 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="GradeFilterDialog.resx">
+      <DependentUpon>GradeFilterDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

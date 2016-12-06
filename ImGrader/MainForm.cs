@@ -21,6 +21,8 @@ namespace ImGrader
 		
 		List<ImageFile> ifiles = new List<ImageFile>();
 		int current_index = -1;
+		string main_dir = "";
+		int min_grade = 0;
 		
 		public MainForm()
 		{
@@ -38,11 +40,16 @@ namespace ImGrader
 		{
 			if (fbrowser.ShowDialog() != DialogResult.OK)
 				return;
-			ifiles = ImageFile.getFilesInDir(fbrowser.SelectedPath);
+			loadDirImages(fbrowser.SelectedPath);
+		}
+		
+		private void loadDirImages(string dir) {
+			main_dir = dir;
+			ifiles = ImageFile.getFilesInDir(main_dir);
 			if (ifiles.Count > 1) {
 				current_index = 0;
 				showCurrentIndexImage();
-			}
+			}			
 		}
 		
 		private void showCurrentIndexImage() {
@@ -56,6 +63,8 @@ namespace ImGrader
 			} else {
 				pbox.SizeMode = PictureBoxSizeMode.Zoom;
 			}
+			lbGrade.Text = new String('★', ifiles[current_index].grade);
+			this.Text = ifiles[current_index].fi.Name;
 		}
 		
 	    protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
@@ -65,11 +74,31 @@ namespace ImGrader
 				if (current_index >= ifiles.Count)
 					current_index = 0;
 				showCurrentIndexImage();
+				return true;
 			} else if (keyData == Keys.Left) {
 				current_index--;
 				if (current_index < 0)
 					current_index = ifiles.Count - 1;
 				showCurrentIndexImage();
+				return true;
+			} else if (keyData == Keys.Up) {
+				if (ifiles[current_index].grade < 5) {
+					if (pbox.Image != null)
+						pbox.Image.Dispose();
+					ifiles[current_index].moveGrade(main_dir, ifiles[current_index].grade + 1);
+					showCurrentIndexImage();
+				}
+				showCurrentIndexImage();
+				return true;
+			} else if (keyData == Keys.Down) {
+				if (ifiles[current_index].grade > 0) {
+					if (pbox.Image != null)
+						pbox.Image.Dispose();
+					ifiles[current_index].moveGrade(main_dir, ifiles[current_index].grade - 1);
+					showCurrentIndexImage();
+				}
+				showCurrentIndexImage();
+				return true;
 			}
 	        return base.ProcessCmdKey(ref msg, keyData);
 	    }
@@ -80,6 +109,20 @@ namespace ImGrader
 		
 		void MainFormPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
 		{
+		}
+		
+		void Button2Click(object sender, EventArgs e)
+		{
+			var gfd = new GradeFilterDialog();
+			gfd.setMinGrade(min_grade);
+			if (gfd.ShowDialog() == DialogResult.OK) {
+				min_grade = gfd.getMinGrade();
+				loadDirImages(main_dir);
+				ImageFile.filterMinGrade(ref ifiles, min_grade);
+				current_index = 0;
+				showCurrentIndexImage();
+				button2.Text = min_grade.ToString();
+			}
 		}
 	}
 }
