@@ -20,6 +20,7 @@ namespace ImGrader
 		private System.Windows.Forms.Label lbGrade;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.ToolTip toolTip;
+		private System.Windows.Forms.Label label1;
 		
 		/// <summary>
 		/// Disposes resources used by the form.
@@ -50,6 +51,7 @@ namespace ImGrader
 			this.lbGrade = new System.Windows.Forms.Label();
 			this.button2 = new System.Windows.Forms.Button();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.label1 = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -104,16 +106,26 @@ namespace ImGrader
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.Button2Click);
 			// 
+			// label1
+			// 
+			this.label1.Location = new System.Drawing.Point(66, 37);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(100, 23);
+			this.label1.TabIndex = 4;
+			this.label1.Text = "label1";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(778, 420);
+			this.Controls.Add(this.label1);
 			this.Controls.Add(this.button2);
 			this.Controls.Add(this.lbGrade);
 			this.Controls.Add(this.button1);
 			this.Controls.Add(this.pbox);
 			this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -33,8 +33,8 @@ namespace ImGrader
 			var ilist = new List<ImageFile>();
 			foreach (string fn in Directory.GetFiles(dir)) {
 				var fi = new FileInfo(fn);
-								
-				if (fi.Extension != ".jpg" && fi.Extension != ".jpeg" && fi.Extension != ".png")
+				var ext = fi.Extension.ToLower();
+				if (ext != ".jpg" && ext != ".jpeg" && ext != ".png")
 					continue;
 				
 				var imf = new ImageFile(fn, 0, fi);
@@ -47,7 +47,8 @@ namespace ImGrader
 					// Pick up the already graded files in the directory
 					foreach (string fn1 in Directory.GetFiles(fi.FullName)) {
 						var fi1 = new FileInfo(fn1);
-						if (fi1.Extension != ".jpg" && fi1.Extension != ".jpeg" && fi1.Extension != ".png")
+						var ext = fi1.Extension.ToLower();
+						if (ext != ".jpg" && ext != ".jpeg" && ext != ".png")
 							continue;
 						var imf1 = new ImageFile(fn1, int.Parse(fi.Name), fi1);
 						ilist.Add(imf1);
@@ -55,7 +56,8 @@ namespace ImGrader
 				}
 			}
 			
-			ilist.Sort((a,b) => a.fi.LastWriteTimeUtc.CompareTo(b.fi.LastWriteTimeUtc));
+			
+			ilist.Sort((a,b) => a.fi.CreationTimeUtc.CompareTo(b.fi.CreationTimeUtc));
 			
 			return ilist;
 		}

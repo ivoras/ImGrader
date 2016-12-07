@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using ExifLib;
 
 namespace ImGrader
 {
@@ -23,6 +24,7 @@ namespace ImGrader
 		int current_index = -1;
 		string main_dir = "";
 		int min_grade = 0;
+
 		
 		public MainForm()
 		{
@@ -34,6 +36,7 @@ namespace ImGrader
 			//
 			// TODO: Add constructor code after the InitializeComponent() call.
 			//
+
 		}
 		
 		void Button1Click(object sender, EventArgs e)
@@ -57,14 +60,36 @@ namespace ImGrader
 				return;
 			if (pbox.Image != null)
 				pbox.Image.Dispose();
-			pbox.Image = Image.FromFile(ifiles[current_index].fi.FullName);
-			if (pbox.Image.Width < this.Width && pbox.Image.Height < this.Height) {
+			var fn = ifiles[current_index].fi.FullName;
+			var exif = new ExifReader(fn);
+			var img = Image.FromFile(fn);
+			
+			UInt16 orientation;
+			if (exif.GetTagValue<UInt16>(ExifTags.Orientation, out orientation)) {
+				label1.Text = orientation.ToString();
+				switch (orientation) {
+					case 3:
+						img.RotateFlip(RotateFlipType.Rotate180FlipNone);
+						break;
+					case 6:
+						img.RotateFlip(RotateFlipType.Rotate90FlipNone);
+						break;
+					case 8:
+						img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+						break;
+				}
+			}
+			
+			pbox.Image = img;
+			if (img.Width < this.Width && img.Height < this.Height) {
 				pbox.SizeMode = PictureBoxSizeMode.CenterImage;
 			} else {
 				pbox.SizeMode = PictureBoxSizeMode.Zoom;
 			}
 			lbGrade.Text = new String('★', ifiles[current_index].grade);
-			this.Text = ifiles[current_index].fi.Name;
+			this.Text = ifiles[current_index].fi.Name + " ## " + (current_index + 1) + " / " + (ifiles.Count + 1);
+			
+			exif.Dispose();
 		}
 		
 	    protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
@@ -96,6 +121,20 @@ namespace ImGrader
 						pbox.Image.Dispose();
 					ifiles[current_index].moveGrade(main_dir, ifiles[current_index].grade - 1);
 					showCurrentIndexImage();
+				}
+				showCurrentIndexImage();
+				return true;
+			} else if (keyData == Keys.PageUp) {
+				current_index += 100;
+				if (current_index >= ifiles.Count) {
+					current_index = ifiles.Count-1;
+				}
+				showCurrentIndexImage();
+				return true;
+			} else if (keyData == Keys.PageDown) {
+				current_index -= 100;
+				if (current_index < 0) {
+					current_index = 0;
 				}
 				showCurrentIndexImage();
 				return true;
