@@ -11,3 +11,5 @@ ImGrader has an extremely simple mode of use:
 5. Go to the folder with images, inspect the subfolders, copy them, move them, upload them, whatever. You're done.
 
 In just two to three iterations of upvoting (and downvoting), with the help of ImGrader's very lean UI, you will quickly filter out the best images to share or save.
+
+Click on the "Releases" link in the project status bar to download the latest version.
