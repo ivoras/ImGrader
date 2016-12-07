@@ -66,7 +66,9 @@ namespace ImGrader
 			
 			UInt16 orientation;
 			if (exif.GetTagValue<UInt16>(ExifTags.Orientation, out orientation)) {
-				label1.Text = orientation.ToString();
+				UInt32 iso;
+				if (exif.GetTagValue<UInt32>(ExifTags.ISOSpeed, out iso))
+					label1.Text = "ISO " + iso;
 				switch (orientation) {
 					case 3:
 						img.RotateFlip(RotateFlipType.Rotate180FlipNone);

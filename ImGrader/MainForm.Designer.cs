@@ -110,9 +110,8 @@ namespace ImGrader
 			// 
 			this.label1.Location = new System.Drawing.Point(66, 37);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(100, 23);
+			this.label1.Size = new System.Drawing.Size(119, 23);
 			this.label1.TabIndex = 4;
-			this.label1.Text = "label1";
 			// 
 			// MainForm
 			// 
