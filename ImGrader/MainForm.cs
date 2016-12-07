@@ -96,50 +96,87 @@ namespace ImGrader
 		
 	    protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
 			//MessageBox.Show(this, "ke: " + keyData);
-			if (keyData == Keys.Right) {
-				current_index++;
-				if (current_index >= ifiles.Count)
-					current_index = 0;
-				showCurrentIndexImage();
-				return true;
-			} else if (keyData == Keys.Left) {
-				current_index--;
-				if (current_index < 0)
-					current_index = ifiles.Count - 1;
-				showCurrentIndexImage();
-				return true;
-			} else if (keyData == Keys.Up) {
-				if (ifiles[current_index].grade < 5) {
+			switch (keyData) {
+				case Keys.Right:
+					current_index++;
+					if (current_index >= ifiles.Count)
+						current_index = 0;
+					showCurrentIndexImage();
+					return true;
+				case Keys.Left:
+					current_index--;
+					if (current_index < 0)
+						current_index = ifiles.Count - 1;
+					showCurrentIndexImage();
+					return true;
+				case Keys.Up:
+					if (ifiles[current_index].grade < 5) {
+						if (pbox.Image != null)
+							pbox.Image.Dispose();
+						ifiles[current_index].moveGrade(main_dir, ifiles[current_index].grade + 1);
+						showCurrentIndexImage();
+					}
+					showCurrentIndexImage();
+					return true;
+				case Keys.Down:
+					if (ifiles[current_index].grade > 0) {
+						if (pbox.Image != null)
+							pbox.Image.Dispose();
+						ifiles[current_index].moveGrade(main_dir, ifiles[current_index].grade - 1);
+						showCurrentIndexImage();
+					}
+					showCurrentIndexImage();
+					return true;
+				case Keys.D1:
 					if (pbox.Image != null)
 						pbox.Image.Dispose();
-					ifiles[current_index].moveGrade(main_dir, ifiles[current_index].grade + 1);
+					ifiles[current_index].moveGrade(main_dir, 1);
 					showCurrentIndexImage();
-				}
-				showCurrentIndexImage();
-				return true;
-			} else if (keyData == Keys.Down) {
-				if (ifiles[current_index].grade > 0) {
+					return true;
+				case Keys.D2:
 					if (pbox.Image != null)
 						pbox.Image.Dispose();
-					ifiles[current_index].moveGrade(main_dir, ifiles[current_index].grade - 1);
+					ifiles[current_index].moveGrade(main_dir, 2);
 					showCurrentIndexImage();
-				}
-				showCurrentIndexImage();
-				return true;
-			} else if (keyData == Keys.PageUp) {
-				current_index += 100;
-				if (current_index >= ifiles.Count) {
-					current_index = ifiles.Count-1;
-				}
-				showCurrentIndexImage();
-				return true;
-			} else if (keyData == Keys.PageDown) {
-				current_index -= 100;
-				if (current_index < 0) {
-					current_index = 0;
-				}
-				showCurrentIndexImage();
-				return true;
+					return true;
+				case Keys.D3:
+					if (pbox.Image != null)
+						pbox.Image.Dispose();
+					ifiles[current_index].moveGrade(main_dir, 3);
+					showCurrentIndexImage();
+					return true;
+				case Keys.D4:
+					if (pbox.Image != null)
+						pbox.Image.Dispose();
+					ifiles[current_index].moveGrade(main_dir, 4);
+					showCurrentIndexImage();
+					return true;
+				case Keys.D5:
+					if (pbox.Image != null)
+						pbox.Image.Dispose();
+					ifiles[current_index].moveGrade(main_dir, 5);
+					showCurrentIndexImage();
+					return true;
+				case Keys.D0:
+					if (pbox.Image != null)
+						pbox.Image.Dispose();
+					ifiles[current_index].moveGrade(main_dir, 0);
+					showCurrentIndexImage();
+					return true;
+				case Keys.PageUp:
+					current_index += 100;
+					if (current_index >= ifiles.Count) {
+						current_index = ifiles.Count - 1;
+					}
+					showCurrentIndexImage();
+					return true;
+				case Keys.PageDown:
+					current_index -= 100;
+					if (current_index < 0) {
+						current_index = 0;
+					}
+					showCurrentIndexImage();
+					return true;
 			}
 	        return base.ProcessCmdKey(ref msg, keyData);
 	    }
