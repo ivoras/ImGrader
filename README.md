@@ -12,4 +12,4 @@ ImGrader has an extremely simple mode of use:
 
 In just two to three iterations of upvoting (and downvoting), with the help of ImGrader's very lean UI, you will quickly filter out the best images to share or save.
 
-Click on the "Releases" link in the project status bar to download the latest version.
+**Download:** Click on the ["Releases"](https://github.com/ivoras/ImGrader/releases) link in the project status bar to download the latest version.
